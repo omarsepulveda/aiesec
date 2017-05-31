@@ -57,6 +57,17 @@ class appmodel extends CI_Model {
             return FALSE;
         }
     }
+    public function consultar_incritos_evetos() {
+        $consulta = $this->db->get("detalles_evento");
+        // $data = $this->db->query("select * from personas
+        
+        if ($consulta->num_rows() > 0) {
+            $consulta = $consulta->result();
+            return $consulta;
+        } else {
+            return FALSE;
+        }
+    }
     
     public function eliminar($id){
         $eliminar = $this->db->query("DELETE FROM personas WHERE numeroDocumento = $id");
