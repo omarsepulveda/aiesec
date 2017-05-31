@@ -62,7 +62,7 @@ class aieseccontroller extends CI_Controller {
         $crud->set_relation('AREATRABAJO', 'area_trabajo', 'NOMBRE_AREA');
         $crud->display_as('ID_AREA', 'Area de trabajo');
         $crud->set_subject('Usuarios');
-       // $crud->unset_add();
+        $crud->unset_add();
         $crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
         $crud->set_rules('EMAIL', 'Correo electronico', 'email');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
@@ -168,7 +168,7 @@ class aieseccontroller extends CI_Controller {
         $this->email->initialize($configGmail);
 
         $this->email->from('jose.aguirre@uptc.edu.co');
-        $this->email->to("josecamilo.molina@uptc.edu.co");
+        $this->email->to("josej36.aguirre@gmail.com");
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Correo con imagen</h2>
@@ -204,7 +204,7 @@ class aieseccontroller extends CI_Controller {
     public function codigo_qr() {
         //cargamos la librería	
         $this->load->library('ciqrcode');
-        $data = $this->random(10);
+        $data = $this->random(30);
 
         //hacemos configuraciones
         $params['data'] = $data;

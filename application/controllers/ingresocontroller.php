@@ -104,6 +104,9 @@ class ingresocontroller extends CI_Controller {
         $this->session->sess_destroy();
         $this->load->view('ingreso_view.php');
     }
+   public function mostrareventos($nombre_evento){
+       
+   }
 
 }
 
