@@ -15,9 +15,33 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/animate" />
 
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/registro.css" /> 
+        <link href="<?php echo base_url(); ?>/../plantilla/alertifyjs/css/alertify.css" rel="stylesheet"/>
+        <script src="<?php echo base_url(); ?>/../plantilla/alertifyjs/alertify.js" type="text/javascript"></script>
     </head>
 
     <body>
+        <script type="text/javascript">
+            
+        function enviarFormulario(){
+            var cedula=document.getElementById("documento").value;
+            if(!cedula==""){
+                document.getElementById("form-login").submit();
+            }else{
+               alertify.error("Digite cedula");
+               
+            }
+            
+        }
+    </script>
+        <?php
+        if (isset($registro)){
+            ?>
+        <script type="text/javascript">
+                alertify.error("El usuario ya existe");
+            </script>
+            <?php
+        }
+        ?>
 
         <div id="registrar">
 
@@ -41,7 +65,7 @@
 
                     <form id="form-login" action="<?= base_url() . 'index.php/ingresocontroller/registrar' ?>" method="post" onsubmit="return validation()" >
                         <p><label for="documento">Documento:</label></p>
-                        <input name="DOCUMENTO" type="text" id="nombre" class="nombre"  required="Este campo es requerido" ceholder="Numero de documento" autofocus=""/></p>
+                        <input name="DOCUMENTO" type="text" id="documento" class="nombre"  required="Este campo es requerido" ceholder="Numero de documento" autofocus=""/></p>
 
                         <!--=============================================================================================-->
                         <!--La sisguientes 2 líneas son para agregar campos al formulario con sus respectivos labels-->
@@ -66,9 +90,8 @@
                         <p><label for="CLAVE1">Repetir contraseña:</label></p>
                         <input name="repass" required="Este campo es requerido" type="password" id="repass" class="repass" placeholder="Repite contraseña" /></p>
 
-                        <p id="bot"><input name="submit" type="submit" id="boton" value="Registrar" class="boton"/></p>
-
                     </form>
+                    <p id="bot"><button onclick="enviarFormulario()" class="boton">Registrarse</button></p>
                 </div>
 
                 <div id="pie"> <button  id="boton" ><a href="<?= base_url() . 'index.php/ingresocontroller/login' ?>"</a>Regresar</a> </button></div>
@@ -78,6 +101,5 @@
 
 
     </body
-
-
+    
 </html>

@@ -6,7 +6,7 @@
         <link rel="icon" type="image/png" href="<?php echo base_url(); ?>/../plantilla/assets/img/favicon.ico">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-        <title>Aisec</title>
+        <title>AisecCam</title>
 
 
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
@@ -200,7 +200,7 @@
                                             <div class="col-md-4">
                                                 <div class="card">
                                                     <div class="header">
-                                                        <h4 class="title">Email Statistics</h4>
+                                                        <h4 class="title">hola  </h4>
                                                         <p class="category">Last Campaign Performance</p>
                                                     </div>
                                                     <div class="content">

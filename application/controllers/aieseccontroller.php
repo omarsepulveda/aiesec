@@ -21,7 +21,13 @@ class aieseccontroller extends CI_Controller {
     }
 
     public function _example_output($output = null) {
-      $this->load->view('aiesecview.php', (array) $output);
+        
+       if ($this->session->userdata('islogin')!=1){
+           redirect('ingresocontroller');
+       }else{
+           $this->load->view('aiesecview.php', (array) $output);
+       }
+      
        
        // $this->load->view('aiesecview.php', (array) $output);
     }

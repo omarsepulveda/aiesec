@@ -17,16 +17,39 @@
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/demo2.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/estilos.css" />
         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/animate" />
-         <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/animate" />
- 
+        <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?> /../plantilla/assets/css/animate" />
+        <link href="<?php echo base_url(); ?>/../plantilla/alertifyjs/css/alertify.css" rel="stylesheet"/>
+        <script src="<?php echo base_url(); ?>/../plantilla/alertifyjs/alertify.js" type="text/javascript"></script>
+        
     </head>
     <body>
+        <?php
+        if (isset($inicio)){
+            ?>
+        <script type="text/javascript">
+                alertify.error("Datos incorrectos");
+            </script>
+            <?php
+            
+        }
+        ?>
+            <?php
+        if (isset($registro)){
+            ?>
+        <script type="text/javascript">
+                alertify.success("Registro exitoso");
+            </script>
+            <?php
+            
+        }
+        ?>
+        
         <div class="container">
 
             <header>
                 <h1>AIESEC <span>AIESEC</span></h1>
                 <nav class="codrops-demos">
-                
+
                 </nav>
             </header>
             <section>				
@@ -46,25 +69,25 @@
                                     <label for="password" class="youpasswd" data-icon="p">Contrasseña </label>
                                     <input id="password" name="CLAVE" required="required" type="password" placeholder="*********" /> 
                                 </p>
-                                
+
                                 <p class="keeplogin"> 
                                     <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
                                     <label for="loginkeeping">Mantenerme la sesion iniciada</label>
                                 </p>
-                                   <p class="login button"> 
+                                <p class="login button"> 
                                     <input type="submit" value="Login" /> 
                                 </p>
-                              
-                                 <p class="change_link">
+
+                                <p class="change_link">
                                     No está Regitrado?
                                     <a href="<?= base_url() . 'index.php/ingresocontroller/registro' ?>" class="to_register">Registrese aqui</a>
                                 </p>
-                                  
-                            </form>
-                      
 
-                    </div>
-                </div>  
+                            </form>
+
+
+                        </div>
+                    </div>  
             </section>
         </div>
     </body>
