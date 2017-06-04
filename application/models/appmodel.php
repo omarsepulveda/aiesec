@@ -12,7 +12,8 @@ class appmodel extends CI_Model {
     }
 
     public function consultarLoggin($correo, $contraseña) {
-        $data= $this->db->query("select * from personas where EMAIL = '$correo' AND CLAVE = '$contraseña'");
+        $data= $this->db->query("select * from personas p, area_trabajo a where p.AREATRABAJO=A.ID_AREA AND EMAIL = '$correo' AND CLAVE = '$contraseña'AND"
+                . " ID_AREA=3");
        // $contrasena = $this->db->query("select contrasena from personas where contrasena = '" . $contrasena . "'");
 
         if ($data->num_rows() > 0) {

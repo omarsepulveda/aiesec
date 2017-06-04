@@ -66,13 +66,13 @@
                                     <input id="username" name="EMAIL" required="required" type="text" placeholder="usuario@mail.com"/>
                                 </p>
                                 <p> 
-                                    <label for="password" class="youpasswd" data-icon="p">Contrasseña </label>
+                                    <label for="password" class="youpasswd" data-icon="p">Contraseña </label>
                                     <input id="password" name="CLAVE" required="required" type="password" placeholder="*********" /> 
                                 </p>
 
                                 <p class="keeplogin"> 
                                     <input type="checkbox" name="loginkeeping" id="loginkeeping" value="loginkeeping" /> 
-                                    <label for="loginkeeping">Mantenerme la sesion iniciada</label>
+                                    <label for="loginkeeping">Mantener sesión iniciada</label>
                                 </p>
                                 <p class="login button"> 
                                     <input type="submit" value="Login" /> 

@@ -156,7 +156,7 @@ class aieseccontroller extends CI_Controller {
      public function enviar_qr() {
 //     return  $this->ciqrcode->generate($params);
 //cargamos la libreria email de ci
-        $this->load->library("email");
+        $this->load->library("Email");
 
 //configuracion para gmail
         $configGmail = array(
@@ -174,7 +174,7 @@ class aieseccontroller extends CI_Controller {
         $this->email->initialize($configGmail);
 
         $this->email->from('jose.aguirre@uptc.edu.co');
-        $this->email->to("josej36.aguirre@gmail.com");
+        $this->email->to("curaseco@gmail.com");
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Correo con imagen</h2>
