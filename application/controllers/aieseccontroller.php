@@ -35,7 +35,7 @@ class aieseccontroller extends CI_Controller {
     public function carga() {
         $output = $this->grocery_crud->render();
         
-        $this->_example_output($output);
+       // $this->_example_output($output);
     }
 
     public function index() {
@@ -51,10 +51,10 @@ class aieseccontroller extends CI_Controller {
         $crud->set_subject('Nombre del Aera de Trabajo');
         $crud->columns('NOMBRE_AREA');
         $crud->display_as('NOMBRE_AREA', 'Area de trabajo');
-        $crud->required_fields('NOMBRE_AREA');
         $crud->fields('NOMBRE_AREA');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
-
+        $crud->required_fields('NOMBRE_AREA');
+        $crud->set_rules('NOMBRE_AREA', 'Nombre del area ', 'required|min_length[5]|max_length[12]');
         $output = $crud->render();
 
         $this->_example_output($output);
@@ -66,13 +66,14 @@ class aieseccontroller extends CI_Controller {
         $crud->set_theme('flexigrid');
         $crud->set_table('personas');
         $crud->set_relation('AREATRABAJO', 'area_trabajo', 'NOMBRE_AREA');
-        $crud->display_as('ID_AREA', 'Area de trabajo');
+        $crud->display_as('AREATRABAJO', 'Area de trabajo');
         $crud->set_subject('Usuarios');
         $crud->unset_add();
-        $crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
+        $crud->unset_edit();
+       // $crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
         $crud->set_rules('EMAIL', 'Correo electronico', 'email');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
-
+        $crud->columns('NOMBRES', 'APELLIDOS', 'EMAIL', 'AREATRABAJO', 'TIPO');
         $output = $crud->render();
 
         $this->_example_output($output);

@@ -178,8 +178,8 @@
                                             </ul>
                                         </li>
                                         <li>
-                                            <a href="<?php echo site_url('ingresocontroller/serrar_session') ?>">
-                                                Salir
+                                            <a href="<?php echo site_url('ingresocontroller/cerrar_session') ?>">
+                                                Cerrar sesión
                                             </a>
                                         </li>
                                     </ul>

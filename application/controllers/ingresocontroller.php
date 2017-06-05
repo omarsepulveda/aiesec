@@ -70,42 +70,35 @@ class ingresocontroller extends CI_Controller {
         }
     }
 
-    public function auteticacion() {
-        switch ($this->session->userdata('perfil')) {
-            case '':
-                $data['token'] = $this->token();
-//$data['titulo'] = 'Login con roles de usuario en codeigniter';
-                $this->load->view('aiesecview', $data);
-                break;
-            case 'administrador':
-                redirect(base_url() . 'admin');
-                break;
-            case 'vicepresidente':
-                redirect(base_url() . 'vicep');
-                break;
-            case 'usuario':
-                redirect(base_url() . 'usuario');
-                break;
-            default:
-                $data['titulo'] = 'AIESEC';
-                $this->load->view('loginView', $data);
-                break;
-        }
-    }
-
-    public function token() {
-        $token = md5(uniqid(rand(), true));
-        $this->session->set_userdata('token', $token);
-        return $token;
-    }
-
-    public function serrar_session() {
+  
+    public function Cerrar_session() {
         $this->session->sess_destroy();
         $this->load->view('ingreso_view');
     }
 
     public function mostrareventos($nombre_evento) {
         
+    }
+     public function validacion()
+    {
+         
+        $this->load->library('form_validation');
+        $crud->form_validation->required_fields('DOCUMENTO','EMAIL','NOMBRES','APELLIDOS','CLAVE');
+        $this->form_validation->set_rules('NOMBRES', 'Nombre de usuario', 'required|min_length[5]|max_length[12]');
+        $this->form_validation->set_rules('APELLIDOS', 'Apellido de usuario', 'required|min_length[5]|max_length[12]');
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        $crud->form_validation->set_rules('DOCUMENTO', 'Nombres del usuario ', 'required|min_length[3]|max_length[12]|numeric');
+        $crud->form_validation->set_rules('APELLIDOS', 'Apellidos del usuario ', 'required|min_length[3]|max_length[12]');
+        $this->form_validation->set_rules('CLAVE', 'CLAVE1', 'required|matches[passconf]');
+        $this->form_validation->set_rules('CLAVE1', 'Confirmar contraseña', 'required');
+        
+         
+        if ($this->form_validation->run() == FALSE) {
+            $this->load->view('formulario');
+        } else {
+            echo "Datos cargador correctamente";
+        }
+         
     }
 
 }

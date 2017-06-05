@@ -63,7 +63,8 @@
 
                 <div id="cuerpo">
 
-                    <form id="form-login" action="<?= base_url() . 'index.php/ingresocontroller/registrar' ?>" method="post" onsubmit="return validation()" >
+                    <form id="form-login"  action="<?= base_url() . 'index.php/ingresocontroller/registrar' ?>" method="post" >
+                         <?php echo form_open('index.php/ingresocontroller/validacion'); ?>
                         <p><label for="documento">Documento:</label></p>
                         <input name="DOCUMENTO" type="text" id="documento" class="nombre"  required="Este campo es requerido" ceholder="Numero de documento" autofocus=""/></p>
 
