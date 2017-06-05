@@ -117,7 +117,7 @@ class aieseccontroller extends CI_Controller {
 
     public function detalles_management() {
         $crud = new grocery_CRUD();
-
+        
         $crud->set_theme('flexigrid');
         $crud->set_relation('EVENTOS', 'eventos', 'NOMBRE_EVENTO');
         $crud->set_relation('cc', 'personas', '{NOMBRES}{APELLIDOS}');
@@ -126,7 +126,7 @@ class aieseccontroller extends CI_Controller {
         $crud->display_as('cc', 'Usuarios incritos');
         $crud->display_as('EVENTOS', 'Eventos');
         $crud->display_as('activado', 'Estado del evento');
-        //$crud->unset_columns('cc','FOTO');
+        $crud->unset_add('cc','FOTO');
         $crud->columns('cc', 'EVENTOS', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material');
 
         $crud->callback_column('valor', array($this, 'valueTopesos'));
