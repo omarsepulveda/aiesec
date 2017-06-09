@@ -13,7 +13,9 @@ class aieseccontroller extends CI_Controller {
         $this->load->helper('url');
         $this->load->model("appmodel");
         $this->load->library('grocery_CRUD');
-        $this->load->library(array('session', 'form_validation'));
+        $this->load->library(array('session'));
+        
+        
         $this->load->helper(array('url', 'form'));
 
         //$this->load->library('ci_qr_code');
@@ -53,8 +55,8 @@ class aieseccontroller extends CI_Controller {
         $crud->display_as('NOMBRE_AREA', 'Area de trabajo');
         $crud->fields('NOMBRE_AREA');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
-        $crud->required_fields('NOMBRE_AREA');
-        $crud->set_rules('NOMBRE_AREA', 'Nombre del area ', 'required|min_length[5]|max_length[12]');
+       // $crud->required_fields('NOMBRE_AREA');
+        $crud->required_fields('NOMBRE_AREA', 'Nombre del area ', 'required|min_length[5]|max_length[12]');
         $output = $crud->render();
 
         $this->_example_output($output);
@@ -126,9 +128,9 @@ class aieseccontroller extends CI_Controller {
         $crud->display_as('cc', 'Usuarios incritos');
         $crud->display_as('EVENTOS', 'Eventos');
         $crud->display_as('activado', 'Estado del evento');
-        $crud->unset_add('cc','FOTO');
+        $crud->unset_add();
         $crud->columns('cc', 'EVENTOS', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material');
-
+       // $crud->unset_edit('QR','FOTO','EVENTO','cc');
         $crud->callback_column('valor', array($this, 'valueTopesos'));
 
         $output = $crud->render();
@@ -137,7 +139,7 @@ class aieseccontroller extends CI_Controller {
     }
 
     public function valueTopesos($value, $row) {
-        return $value . '$';
+        return '$'.$value ;
     }
 
     public function estado_management() {
@@ -175,7 +177,7 @@ class aieseccontroller extends CI_Controller {
         $this->email->initialize($configGmail);
 
         $this->email->from('jose.aguirre@uptc.edu.co');
-        $this->email->to("curaseco@gmail.com");
+        $this->email->to("joseisrael.reyes@uptc.edu.co");
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Correo con imagen</h2>
@@ -225,5 +227,14 @@ class aieseccontroller extends CI_Controller {
         echo '<img src="' . base_url() . 'codigoQR/qrcode.jpg" />';
         //echo $usuarios->cc;
     }
+    public function sacarValorTotal(){
+        $total=$this->appmodel->sumar_valor();
+        /* @var $total type */
+        echo $total;
+    }
+   public function activar_cliente_a_evento(){
+       $total = $this->appmodel->consulta_usuarios_evento();
+       echo $total;
+   }
     
 }

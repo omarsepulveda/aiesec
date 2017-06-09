@@ -99,9 +99,9 @@
                         </a>
                     </li>
                     <li>
-                        <a href="<?php echo site_url('aieseccontroller/generador_qr'); ?>">
+                        <a href="<?php echo site_url('aieseccontroller/sacarValorTotal'); ?>">
                             <i class="pe-7s-bell"></i>
-                            <p>Usuarios incritos a un ventos</p>
+                            <p>Reporte de ganancias</p>
                         </a>
                     </li>
                     <li class="active-pro">

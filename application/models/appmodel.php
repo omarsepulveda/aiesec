@@ -73,5 +73,19 @@ class appmodel extends CI_Model {
     public function eliminar($id){
         $eliminar = $this->db->query("DELETE FROM personas WHERE numeroDocumento = $id");
     }
+    
+    
+    public function sumar_valor(){
+        $total = $this->db->query("SELECT SUM(valor) as total FROM detalles_evento");
+        $total = $total->result();
+        return $total[0]->total;
+    }
+        public function consulta_usuarios_evento(){
+        $total = $this->db->query("SELECT P.EMAIL, P.NOMBRES, P.APELLIDOS 
+        FROM personas p, detalles_evento d 
+        WHERE p.DOCUMENTO = d.cc AND D.FOTO is not null");
+        $total = $total->result();
+        return $total;
+    }
 
 }
