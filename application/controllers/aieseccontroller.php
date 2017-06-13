@@ -30,18 +30,22 @@ class aieseccontroller extends CI_Controller {
            $this->load->view('aiesecview.php', (array) $output);
        }
       
-       
        // $this->load->view('aiesecview.php', (array) $output);
     }
    
     public function carga() {
+       
         $output = $this->grocery_crud->render();
-        
-       // $this->_example_output($output);
+        $this->_example_output($output); 
+       
     }
 
     public function index() {
         $this->_example_output((object) array('output' => '', 'js_files' => array(), 'css_files' => array()));
+    }
+    
+    public function cambiarcolor() {
+        return '<imput type"text" maxlength=12 value="" name="AREA_TRABBAJO" style="bakground:red; width:100px" >';
     }
 
     public function area_management() {
@@ -50,13 +54,12 @@ class aieseccontroller extends CI_Controller {
 
         $crud->set_theme('flexigrid');
         $crud->set_table('area_trabajo');
-        $crud->set_subject('Nombre del Aera de Trabajo');
         $crud->columns('NOMBRE_AREA');
         $crud->display_as('NOMBRE_AREA', 'Area de trabajo');
-        $crud->fields('NOMBRE_AREA');
+        $crud->required_fields('NOMBRE_AREA');
+        //$crud->set_rules('NOMBRE_AREA','El nombre del area de trabajo','string');
+        $crud->callback_add_field('AREA_TRABAJO',array($this,'cambiarcolor'));
         $crud->set_field_upload('file_url', 'assets/uploads/files');
-       // $crud->required_fields('NOMBRE_AREA');
-        $crud->required_fields('NOMBRE_AREA', 'Nombre del area ', 'required|min_length[5]|max_length[12]');
         $output = $crud->render();
 
         $this->_example_output($output);
@@ -72,10 +75,12 @@ class aieseccontroller extends CI_Controller {
         $crud->set_subject('Usuarios');
         $crud->unset_add();
         $crud->unset_edit();
-       // $crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
+       //$crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
         $crud->set_rules('EMAIL', 'Correo electronico', 'email');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
         $crud->columns('NOMBRES', 'APELLIDOS', 'EMAIL', 'AREATRABAJO', 'TIPO');
+        
+        $crud->set_field_upload('file_url', 'assets/uploads/files');
         $output = $crud->render();
 
         $this->_example_output($output);
