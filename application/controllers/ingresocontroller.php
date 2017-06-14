@@ -35,7 +35,7 @@ class ingresocontroller extends CI_Controller {
                 redirect('aieseccontroller');
             } 
         }
-        $datos['inicio'] = "aprendiendo codeigniter";
+       // $datos['inicio'] = "aprendiendo codeigniter";
         $this->load->view('ingreso_view',$datos);
     }
 

@@ -47,6 +47,10 @@ class aieseccontroller extends CI_Controller {
     public function cambiarcolor() {
         return '<imput type"text" maxlength=12 value="" name="AREA_TRABBAJO" style="bakground:red; width:100px" >';
     }
+    
+    public function callback_solo_letras($subject) {
+        return preg_match('/^[a-z,.]*/i', $subject);
+    }
 
     public function area_management() {
 
@@ -57,7 +61,7 @@ class aieseccontroller extends CI_Controller {
         $crud->columns('NOMBRE_AREA');
         $crud->display_as('NOMBRE_AREA', 'Area de trabajo');
         $crud->required_fields('NOMBRE_AREA');
-        //$crud->set_rules('NOMBRE_AREA','El nombre del area de trabajo','string');
+        $crud->set_rules( 'NOMBRE_AREA', 'Area de trabajo', 'regex_match[/^[\p{L} ,.]*$/u]');
         $crud->callback_add_field('AREA_TRABAJO',array($this,'cambiarcolor'));
         $crud->set_field_upload('file_url', 'assets/uploads/files');
         $output = $crud->render();
@@ -89,11 +93,11 @@ class aieseccontroller extends CI_Controller {
     public function lugares_management() {
         $crud = new grocery_CRUD();
 
-        //$crud->set_relation('ID_LUGAR','lugares','{UBICADO}');
+        $crud->set_relation('ID_LUGAR','lugares','{UBICADO}');
         $crud->set_theme('flexigrid');
         $crud->display_as('ID_LUGAR', 'Lugar');
         $crud->set_table('lugares');
-        $crud->set_subject('Lugares');
+       // $crud->set_subject('Lugares');
         // $crud->unset_add();
         //$crud->unset_delete();
         $crud->columns('NOMBRE_LUGAR', 'TIPO_LUGAR');
@@ -129,11 +133,10 @@ class aieseccontroller extends CI_Controller {
         $crud->set_relation('EVENTOS', 'eventos', 'NOMBRE_EVENTO');
         $crud->set_relation('cc', 'personas', '{NOMBRES}{APELLIDOS}');
         $crud->set_table('detalles_evento');
-        $crud->set_subject('Detalles del evento');
         $crud->display_as('cc', 'Usuarios incritos');
         $crud->display_as('EVENTOS', 'Eventos');
         $crud->display_as('activado', 'Estado del evento');
-        $crud->unset_add();
+        //$crud->unset_add();
         $crud->columns('cc', 'EVENTOS', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material');
        // $crud->unset_edit('QR','FOTO','EVENTO','cc');
         $crud->callback_column('valor', array($this, 'valueTopesos'));
@@ -182,7 +185,7 @@ class aieseccontroller extends CI_Controller {
         $this->email->initialize($configGmail);
 
         $this->email->from('jose.aguirre@uptc.edu.co');
-        $this->email->to("joseisrael.reyes@uptc.edu.co");
+        $this->email->to("ariatnaneira@gmail.com");
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Correo con imagen</h2>
@@ -219,6 +222,7 @@ class aieseccontroller extends CI_Controller {
         //cargamos la librería	
         $this->load->library('ciqrcode');
         $data = $this->random(30);
+       // $id = this->appmodel->get('DOCUMENTO');
 
         //hacemos configuraciones
         $params['data'] = $data;
@@ -237,9 +241,10 @@ class aieseccontroller extends CI_Controller {
         /* @var $total type */
         echo $total;
     }
-   public function activar_cliente_a_evento(){
-       $total = $this->appmodel->consulta_usuarios_evento();
-       echo $total;
+   public function consultarusuarios(){
+   $data = $this->appmodel->consulta_usuarios_evento();
+         
+       echo "esta imprimiendo bien".$data;
    }
     
 }

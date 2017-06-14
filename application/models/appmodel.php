@@ -12,16 +12,15 @@ class appmodel extends CI_Model {
     }
 
     public function consultarLoggin($correo, $contraseña) {
-        $data= $this->db->query("select * from personas p, area_trabajo a where p.AREATRABAJO=A.ID_AREA AND EMAIL = '$correo' AND CLAVE = '$contraseña'AND"
+        $data = $this->db->query("select * from personas p, area_trabajo a where p.AREATRABAJO=A.ID_AREA AND EMAIL = '$correo' AND CLAVE = '$contraseña'AND"
                 . " ID_AREA=3");
-       // $contrasena = $this->db->query("select contrasena from personas where contrasena = '" . $contrasena . "'");
+        // $contrasena = $this->db->query("select contrasena from personas where contrasena = '" . $contrasena . "'");
 
         if ($data->num_rows() > 0) {
             $data = $data->result();
 
             return $data;
             //elseif ($contrasena->num_rows()>0) {
-                 
         } else {
             return FALSE;
         }
@@ -50,7 +49,7 @@ class appmodel extends CI_Model {
     public function consultarPersonas() {
         $consulta = $this->db->get("personas");
         // $data = $this->db->query("select * from personas
-        
+
         if ($consulta->num_rows() > 0) {
             $consulta = $consulta->result();
             return $consulta;
@@ -58,10 +57,11 @@ class appmodel extends CI_Model {
             return FALSE;
         }
     }
+
     public function consultar_incritos_evetos() {
         $consulta = $this->db->get("detalles_evento");
-        // $data = $this->db->query("select * from personas
-        
+        // $data = $this->db->query("select * from );
+
         if ($consulta->num_rows() > 0) {
             $consulta = $consulta->result();
             return $consulta;
@@ -69,22 +69,23 @@ class appmodel extends CI_Model {
             return FALSE;
         }
     }
-    
-    public function eliminar($id){
+
+    public function eliminar($id) {
         $eliminar = $this->db->query("DELETE FROM personas WHERE numeroDocumento = $id");
     }
-    
-    
-    public function sumar_valor(){
+
+    public function sumar_valor() {
         $total = $this->db->query("SELECT SUM(valor) as total FROM detalles_evento");
         $total = $total->result();
         return $total[0]->total;
     }
-        public function consulta_usuarios_evento(){
-        $total = $this->db->query("SELECT P.EMAIL, P.NOMBRES, P.APELLIDOS 
-        FROM personas p, detalles_evento d 
-        WHERE p.DOCUMENTO = d.cc AND D.FOTO is not null");
-        $total = $total->result();
+
+    public function consulta_usuarios_evento() {
+        $this->db->select('P.EMAIL, P.NOMBRES, P.APELLIDOS');
+        $this->db->from('personas p');
+        $this->db->join('detalles_evento d', ' p.DOCUMENTO = d.cc AND d.FOTO is not null');
+        $total = $this->db->get();
+
         return $total;
     }
 
