@@ -3,7 +3,7 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class ingresocontroller extends CI_Controller {
-    
+
     public function __construct() {
         parent::__construct();
 
@@ -33,10 +33,10 @@ class ingresocontroller extends CI_Controller {
                 );
                 $this->session->set_userdata($newuser);
                 redirect('aieseccontroller');
-            } 
+            }
         }
-       // $datos['inicio'] = "aprendiendo codeigniter";
-        $this->load->view('ingreso_view',$datos);
+        $datos['inicio'] = "aprendiendo codeigniter";
+        $this->load->view('ingreso_view', $datos);
     }
 
     public function registro() {
@@ -55,8 +55,8 @@ class ingresocontroller extends CI_Controller {
             }
         }
         if ($existe) {
-            $datos['registro']=FALSE;
-            $this->load->view('registro_view',$datos);
+            $datos['registro'] = FALSE;
+            $this->load->view('registro_view', $datos);
         } else {
             $data['DOCUMENTO'] = $this->input->post("DOCUMENTO");
             $data['NOMBRES'] = $this->input->post("NOMBRES");
@@ -65,40 +65,23 @@ class ingresocontroller extends CI_Controller {
             $data['EMAIL'] = $this->input->post("EMAIL");
             $data['CLAVE'] = md5($this->input->post("CLAVE"));
             $this->appmodel->insertarUsuario($data);
-            $datos['registro']=FALSE;
-            $this->load->view('ingreso_view.php',$datos);
+            $datos['registro'] = FALSE;
+            $this->load->view('ingreso_view.php', $datos);
+               echo "<script>alert('Estás suscrito, ¡Gracias!.');</script>";
+
+                 redirect('PaquetesController', 'refresh');
         }
     }
 
-  
     public function Cerrar_session() {
         $this->session->sess_destroy();
         $this->load->view('ingreso_view');
     }
 
     public function mostrareventos($nombre_evento) {
-        
-    }
-     public function validacion()
-    {
-         
-        $this->load->library('form_validation');
-        $crud->form_validation->required_fields('DOCUMENTO','EMAIL','NOMBRES','APELLIDOS','CLAVE');
-        $this->form_validation->set_rules('NOMBRES', 'Nombre de usuario', 'required|min_length[5]|max_length[12]');
-        $this->form_validation->set_rules('APELLIDOS', 'Apellido de usuario', 'required|min_length[5]|max_length[12]');
-        $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
-        $crud->form_validation->set_rules('DOCUMENTO', 'Nombres del usuario ', 'required|min_length[3]|max_length[12]|numeric');
-        $crud->form_validation->set_rules('APELLIDOS', 'Apellidos del usuario ', 'required|min_length[3]|max_length[12]');
-        $this->form_validation->set_rules('CLAVE', 'CLAVE1', 'required|matches[passconf]');
-        $this->form_validation->set_rules('CLAVE1', 'Confirmar contraseña', 'required');
-        
-         
-        if ($this->form_validation->run() == FALSE) {
-            $this->load->view('formulario');
-        } else {
-            echo "Datos cargador correctamente";
-        }
-         
+      //  $this->db->insert(TABLE_PRODUCTOS, $data);
+
+     
     }
 
 }

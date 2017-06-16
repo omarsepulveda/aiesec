@@ -80,13 +80,20 @@ class appmodel extends CI_Model {
         return $total[0]->total;
     }
 
-    public function consulta_usuarios_evento() {
-        $this->db->select('P.EMAIL, P.NOMBRES, P.APELLIDOS');
-        $this->db->from('personas p');
-        $this->db->join('detalles_evento d', ' p.DOCUMENTO = d.cc AND d.FOTO is not null');
-        $total = $this->db->get();
+    public function Correo($cc,$eve){
+       $data = $this->db->query("select email from personas p,detalles_evento dt
+                              where p.documento=dt.cc
+                              and dt.eventos =$eve
+                              and dt.cc=$cc
+                               and foto is not null" );
+           if ($data->num_rows() > 0) {
+            $data = $data->result();
+         return $data;
+           } else {
+           return FALSE;
+      }
+   }
+   
 
-        return $total;
-    }
 
 }

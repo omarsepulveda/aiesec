@@ -26,7 +26,7 @@
         <!--  CSS for Demo Purpose, don't include it in your project     -->
         <link href="<?php echo base_url(); ?>/../plantilla/assets/css/demo.css" rel="stylesheet" />
 
-
+         <link href="<?php echo base_url(); ?>/../plantilla/assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
 </head>
 <body>
@@ -58,7 +58,7 @@
                     </li>
                     <li>
                         <a href="<?php echo site_url('aieseccontroller/lugares_management'); ?>"> 
-                            <i class="pe-7s-user"></i>
+                            <i class="pe-7s-map-marker"></i>
                             <p>Lugares</p>
                         </a>
                     </li>
@@ -70,7 +70,7 @@
                     </li>
                     <li>
                         <a href="<?php echo site_url('aieseccontroller/personas_management'); ?>">
-                            <i class="pe-7s-news-paper"></i>
+                            <i class="pe-7s-user"></i>
                             <p>Usuarios</p>
                         </a>
                     </li>
@@ -83,20 +83,20 @@
                     <li>
 
                         <a href="<?php echo site_url('aieseccontroller/enviar_qr'); ?>">
-                            <i class="pe-7s-map-marker"></i>
+                            <i class="pe-7s-rocket"></i>
                             <p>Enviar QR</p>
                         </a>
                     </li>
                     <li>
-                        <!--<a href="<?php echo site_url('aieseccontroller/sacarValorTotal'); ?>"> -->
-                             <a href="<?php echo site_url('aieseccontroller/consultarusuarios'); ?>">
-                            <i class="pe-7s-bell"></i>
-                            <p>Reporte de ganancias</p>
+                        
+                          <a href="https://drive.google.com/drive/u/0/folders/0B_kfJjQhO_dWOHBJN2RtbFJKb3c">
+                            <i class="pe-7s-news-paper"></i>
+                            <p>documentación</p>
                         </a>
                     </li>
                     <li class="active-pro">
                         <a href="<?php echo site_url('aieseccontroller/codigo_qr'); ?>">
-                            <i class="pe-7s-rocket"></i>
+                            <i class="pe-7s-bluetooth"></i>
                             <p>Generador de QR</p>
                         </a>
                     </li>
@@ -189,8 +189,7 @@
 
 
         </div>
-
-
+    
 
         <footer class="footer">
             <div class="container-fluid">

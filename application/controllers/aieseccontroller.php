@@ -14,8 +14,8 @@ class aieseccontroller extends CI_Controller {
         $this->load->model("appmodel");
         $this->load->library('grocery_CRUD');
         $this->load->library(array('session'));
-        
-        
+
+
         $this->load->helper(array('url', 'form'));
 
         //$this->load->library('ci_qr_code');
@@ -23,35 +23,31 @@ class aieseccontroller extends CI_Controller {
     }
 
     public function _example_output($output = null) {
+
+        if ($this->session->userdata('islogin') != 1) {
+            redirect('ingresocontroller');
+        } else {
+            $this->load->view('aiesecview.php', (array) $output);
+         
+        }
         
-       if ($this->session->userdata('islogin')!=1){
-           redirect('ingresocontroller');
-       }else{
-           $this->load->view('aiesecview.php', (array) $output);
-       }
-      
-       // $this->load->view('aiesecview.php', (array) $output);
+        // $this->load->view('aiesecview.php', (array) $output);
     }
-   
+
     public function carga() {
-       
+        
         $output = $this->grocery_crud->render();
-        $this->_example_output($output); 
-       
+        $this->_example_output($output);
+           
+         
     }
 
     public function index() {
-        $this->_example_output((object) array('output' => '', 'js_files' => array(), 'css_files' => array()));
-    }
-    
-    public function cambiarcolor() {
-        return '<imput type"text" maxlength=12 value="" name="AREA_TRABBAJO" style="bakground:red; width:100px" >';
-    }
-    
-    public function callback_solo_letras($subject) {
-        return preg_match('/^[a-z,.]*/i', $subject);
+        $this->_example_output((object)array('output' => '' , 'js_files' => array() , 'css_files' => array()));
+         
     }
 
+    
     public function area_management() {
 
         $crud = new grocery_CRUD();
@@ -61,12 +57,18 @@ class aieseccontroller extends CI_Controller {
         $crud->columns('NOMBRE_AREA');
         $crud->display_as('NOMBRE_AREA', 'Area de trabajo');
         $crud->required_fields('NOMBRE_AREA');
-        $crud->set_rules( 'NOMBRE_AREA', 'Area de trabajo', 'regex_match[/^[\p{L} ,.]*$/u]');
-        $crud->callback_add_field('AREA_TRABAJO',array($this,'cambiarcolor'));
-        $crud->set_field_upload('file_url', 'assets/uploads/files');
+        $crud->set_rules('NOMBRE_AREA', 'Area de trabajo', 'regex_match[/^[\p{L} ,.]*$/u]');
+        $crud->callback_add_field('AREA_TRABAJO', array($this, 'cambiarcolor'));
+       
+        
         $output = $crud->render();
-
         $this->_example_output($output);
+       
+        $crud->callback_after_insert($output);
+            
+         $this->load->view('aiesecview');
+        
+        //redirect(aieseccontroller/personas_management);         
     }
 
     public function personas_management() {
@@ -79,11 +81,11 @@ class aieseccontroller extends CI_Controller {
         $crud->set_subject('Usuarios');
         $crud->unset_add();
         $crud->unset_edit();
-       //$crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
+        //$crud->required_fields('NOMBRES', 'EMAIL', 'CLAVE', 'DOCUMENTO');
         $crud->set_rules('EMAIL', 'Correo electronico', 'email');
         $crud->set_field_upload('file_url', 'assets/uploads/files');
         $crud->columns('NOMBRES', 'APELLIDOS', 'EMAIL', 'AREATRABAJO', 'TIPO');
-        
+
         $crud->set_field_upload('file_url', 'assets/uploads/files');
         $output = $crud->render();
 
@@ -93,14 +95,14 @@ class aieseccontroller extends CI_Controller {
     public function lugares_management() {
         $crud = new grocery_CRUD();
 
-        $crud->set_relation('ID_LUGAR','lugares','{UBICADO}');
+        $crud->set_relation('ID_LUGAR', 'lugares', '{UBICADO}');
         $crud->set_theme('flexigrid');
         $crud->display_as('ID_LUGAR', 'Lugar');
         $crud->set_table('lugares');
-       // $crud->set_subject('Lugares');
+        // $crud->set_subject('Lugares');
         // $crud->unset_add();
         //$crud->unset_delete();
-        $crud->columns('NOMBRE_LUGAR', 'TIPO_LUGAR');
+        $crud->columns('NOMBRE_LUGAR');
         $crud->required_fields('NOMBRE_LUGAR');
 
         $crud->set_field_upload('file_url', 'assets/uploads/files');
@@ -128,7 +130,7 @@ class aieseccontroller extends CI_Controller {
 
     public function detalles_management() {
         $crud = new grocery_CRUD();
-        
+
         $crud->set_theme('flexigrid');
         $crud->set_relation('EVENTOS', 'eventos', 'NOMBRE_EVENTO');
         $crud->set_relation('cc', 'personas', '{NOMBRES}{APELLIDOS}');
@@ -138,7 +140,7 @@ class aieseccontroller extends CI_Controller {
         $crud->display_as('activado', 'Estado del evento');
         //$crud->unset_add();
         $crud->columns('cc', 'EVENTOS', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material');
-       // $crud->unset_edit('QR','FOTO','EVENTO','cc');
+        // $crud->unset_edit('QR','FOTO','EVENTO','cc');
         $crud->callback_column('valor', array($this, 'valueTopesos'));
 
         $output = $crud->render();
@@ -147,7 +149,7 @@ class aieseccontroller extends CI_Controller {
     }
 
     public function valueTopesos($value, $row) {
-        return '$'.$value ;
+        return '$' . $value;
     }
 
     public function estado_management() {
@@ -164,7 +166,7 @@ class aieseccontroller extends CI_Controller {
         $this->_example_output($output);
     }
 
-     public function enviar_qr() {
+    public function enviar_qr() {
 //     return  $this->ciqrcode->generate($params);
 //cargamos la libreria email de ci
         $this->load->library("Email");
@@ -185,14 +187,14 @@ class aieseccontroller extends CI_Controller {
         $this->email->initialize($configGmail);
 
         $this->email->from('jose.aguirre@uptc.edu.co');
-        $this->email->to("ariatnaneira@gmail.com");
+        $this->email->to("jose.aguirre@gmail.com");//////////////////////ESTA SIN CORREO
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Correo con imagen</h2>
 			<br>
 			AIESEC
 			<br>
-			'
+			
         );
 
 
@@ -208,8 +210,7 @@ class aieseccontroller extends CI_Controller {
         }
     }
 
-  
-    public function random($num) {
+   public function random($num) {
         $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $string = '';
         for ($i = 0; $i < $num; $i++) {
@@ -222,8 +223,7 @@ class aieseccontroller extends CI_Controller {
         //cargamos la librería	
         $this->load->library('ciqrcode');
         $data = $this->random(30);
-       // $id = this->appmodel->get('DOCUMENTO');
-
+        // $id = this->appmodel->get('DOCUMENTO');
         //hacemos configuraciones
         $params['data'] = $data;
         $params['level'] = 'H';
@@ -233,18 +233,33 @@ class aieseccontroller extends CI_Controller {
         $params['savename'] = FCPATH . 'codigoQR/qrcode.jpg';
         //generamos el código qr
         $this->ciqrcode->generate($params);
-        echo '<img src="' . base_url() . 'codigoQR/qrcode.jpg" />';
+        return '<img src="' . base_url() . 'codigoQR/qrcode.jpg" />';
         //echo $usuarios->cc;
+        $this->load->view('aiesecview');
     }
-    public function sacarValorTotal(){
-        $total=$this->appmodel->sumar_valor();
+
+    public function sacarValorTotal() {
+        $total = $this->appmodel->sumar_valor();
         /* @var $total type */
-        echo $total;
+        return $total;
     }
-   public function consultarusuarios(){
-   $data = $this->appmodel->consulta_usuarios_evento();
-         
-       echo "esta imprimiendo bien".$data;
-   }
-    
+
+    public function consultarusuarios() {
+        $estudiante = $this->appmodel->Correo($dato1, $dato2);
+        echo json_encode(array('estudiante' => $estudiante));
+
+        echo "esta imprimiendo bien" . $estudiante;
+    }
+
+    public function consultarCorrreo() {
+        $dato1 = $this->input->get("cc");
+        $dato2 = $this->input->get("evento");
+
+
+
+        $estudiante = $this->appmodel->Correo($dato1, $dato2);
+        
+        echo json_encode(array('estudiante' => $estudiante));
+    }
+
 }
