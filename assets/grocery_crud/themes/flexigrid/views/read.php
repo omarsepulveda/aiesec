@@ -54,7 +54,7 @@
 	</div>
 	<div class="pDiv">
 		<div class='form-button-box'>
-			<input type='button' value='<?php echo $this->l('form_back_to_list'); ?>' class="btn btn-large back-to-list" id="cancel-button" />
+                    <input type='button' value='<?php echo $this->l('form_back_to_list'); ?>' class="btn  btn-primary" id="cancel-button" />
 		</div>
 		<div class='form-button-box'>
 			<div class='small-loading' id='FormLoading'><?php echo $this->l('form_update_loading'); ?></div>

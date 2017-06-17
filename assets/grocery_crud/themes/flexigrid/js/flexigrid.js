@@ -1,3 +1,5 @@
+/* global unique_hash, message_alert_delete */
+
 $(function(){
 	$('.quickSearchButton').click(function(){
 		$(this).closest('.flexigrid').find('.quickSearchBox').slideToggle('normal');
@@ -67,7 +69,7 @@ $(function(){
 			 }
 		});
 
-		if ($('.flexigrid').length == 1) { //disable cookie storing for multiple grids in one page
+		if ($('.flexigrid').length === 1) { //disable cookie storing for multiple grids in one page
 			createCookie('crud_page_'+unique_hash,crud_page,1);
 			createCookie('per_page_'+unique_hash,$('#per_page').val(),1);
 			createCookie('hidden_ordering_'+unique_hash,$('#hidden-ordering').val(),1);
@@ -105,7 +107,7 @@ $(function(){
 	});
 
 	$('.prev-button').click(function(){
-		if( $(this).closest('.flexigrid').find('.crud_page').val() != "1")
+		if( $(this).closest('.flexigrid').find('.crud_page').val() !== "1")
 		{
 			$(this).closest('.flexigrid').find('.crud_page').val( parseInt($(this).closest('.flexigrid').find('.crud_page').val(),10) - 1 );
 			$(this).closest('.flexigrid').find('.crud_page').trigger('change');
@@ -213,11 +215,11 @@ $(function(){
 			}
 		});
 	});
+	
+    $('.crud_page').numeric();
 
-	$('.crud_page').numeric();
 
-
-	if ($('.flexigrid').length == 1) {	 //disable cookie storing for multiple grids in one page
+	if ($('.flexigrid').length === 1) {	 //disable cookie storing for multiple grids in one page
 		var cookie_crud_page = readCookie('crud_page_'+unique_hash);
 		var cookie_per_page  = readCookie('per_page_'+unique_hash);
 		var hidden_ordering  = readCookie('hidden_ordering_'+unique_hash);
@@ -245,7 +247,7 @@ $(function(){
 
 function displaying_and_pages(this_container)
 {
-	if (this_container.find('.crud_page').val() == 0) {
+	if (this_container.find('.crud_page').val() === 0) {
 		this_container.find('.crud_page').val('1');
 	}
 
@@ -255,7 +257,7 @@ function displaying_and_pages(this_container)
 
 	this_container.find('.last-page-number').html( Math.ceil( total_items / per_page) );
 
-	if (total_items == 0) {
+	if (total_items === 0) {
 		this_container.find('.page-starts-from').html( '0');
 	} else {
 		this_container.find('.page-starts-from').html( (crud_page - 1)*per_page + 1 );

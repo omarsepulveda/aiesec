@@ -1,6 +1,6 @@
 <?php
 
-class appmodel extends CI_Model {
+class Appmodel extends CI_Model {
 
     function __construct() {
         parent::__construct();
@@ -81,11 +81,9 @@ class appmodel extends CI_Model {
     }
 
     public function Correo($cc,$eve){
-       $data = $this->db->query("select email from personas p,detalles_evento dt
-                              where p.documento=dt.cc
-                              and dt.eventos =$eve
-                              and dt.cc=$cc
-                               and foto is not null" );
+       $data = $this->db->query("select email from personas p,detalles_evento d
+                              where p.documento=d.cc
+                              and foto is not null" );
            if ($data->num_rows() > 0) {
             $data = $data->result();
          return $data;
