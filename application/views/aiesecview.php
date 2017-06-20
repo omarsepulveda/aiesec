@@ -66,7 +66,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="<?php echo site_url('aieseccontroller/consultarCorrreo'); ?>"> 
+                            <a href="<?php echo site_url('aieseccontroller/sacarValorTotal'); ?>"> 
                                 <i class="pe-7s-map-marker"></i>
                                 <p>consulta</p>
                             </a>
@@ -196,18 +196,15 @@
                     <script src="<?php echo $file; ?>"></script>
                 <?php endforeach; ?>
                 <?php echo $output; ?>
-          <!--         
+               
          <nav  class="w3-green w3-hover-shadow w3-center">
-            <?php
-           foreach ($precio  as $value) {?>
+          
                 <h1>
-                  <?php echo $value['total']; ?>
+                  <?php echo "total";?>
                  </h1>
 
-            <?php
-                }
-                ?>
-        </nav> -->
+          
+        </nav>
          
             </div>
 

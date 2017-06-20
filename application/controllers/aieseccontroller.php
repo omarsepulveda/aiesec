@@ -19,15 +19,15 @@ class Aieseccontroller extends CI_Controller {
     }
 
     public function _example_output($output = null) {
-        
-          if ($this->session->userdata('islogin') != 1) {
-          redirect('ingresocontroller');
-          } else {
-          $this->load->view('aiesecview.php', (array) $output);
-          }
-          
-         
-      //$data = $this->consultarCorrreo();
+
+        if ($this->session->userdata('islogin') != 1) {
+            redirect('ingresocontroller');
+        } else {
+            $this->load->view('aiesecview.php', (array) $output);
+        }
+
+
+
         //$this->load->view("activarusuarios.php", $data);
     }
 
@@ -112,14 +112,14 @@ class Aieseccontroller extends CI_Controller {
     public function detalles_management() {
         $crud = new grocery_CRUD();
         $crud->set_theme('flexigrid');
-        $crud->set_relation('eventos', 'eventos', 'ID_EVENTO');
+        $crud->set_relation('eventos', 'eventos', 'NOMBRE_EVENTO');
         $crud->set_relation('cc', 'personas', '{NOMBRES}{APELLIDOS}');
         $crud->set_table('detalles_evento');
         $crud->set_subject('detalles');
         $crud->display_as('cc', 'Usuarios incritos');
-        $crud->display_as('EVENTOS', 'Eventos');
+        $crud->display_as('NOMBRE_EVENTO', 'Eventos');
         $crud->display_as('activado', 'Estado del evento');
-        $crud->columns('cc', 'EVENTOS', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material');
+        $crud->columns('cc', 'eventos', 'activado', 'FOTO', 'cantidad_refrigerio', 'valor', 'material', 'QR');
         $crud->set_field_upload('FOTO');
         $crud->callback_column('valor', array($this, 'valueTopesos'));
 
@@ -144,6 +144,15 @@ class Aieseccontroller extends CI_Controller {
     }
 
     public function enviar_qr() {
+        $emails = "";
+        // $datos = $this->input->get("evento");
+        $correo = $this->appmodel->Correo();
+        // return $correo;
+        $data = array('correo' => $correo
+        );
+
+        // $data = $emails;
+        // echo $data;
 //cargamos la libreria email de ci
         $this->load->library("Email");
 
@@ -152,7 +161,7 @@ class Aieseccontroller extends CI_Controller {
             'protocol' => 'smtp',
             'smtp_host' => 'ssl://smtp.googlemail.com',
             'smtp_port' => 465,
-            'smtp_user' => 'jaieventapp@gmail.com',
+            'smtp_user' => 'aieventapp@gmail.com',
             'smtp_pass' => 'a1234567890',
             'mailtype' => 'html',
             'charset' => 'utf-8',
@@ -162,7 +171,15 @@ class Aieseccontroller extends CI_Controller {
 //cargamos la configuración para enviar con gmail
         $this->email->initialize($configGmail);
         $this->email->from('aieventapp@gmail.com');
-        $this->email->to("josej36.aguirre@gmail.com"); //////////////////////ESTA SIN CORREO
+        //$this->email->to('jenny.quesada@uptc.edu.co'); //////////////////////ESTA SIN CORREO
+        $this->email->to('curaseco@gmail.com'); //////////////////////ESTA SIN CORREO
+        //$this->email->to('omar.sepulveda@uptc.edu.co'); //////////////////////ESTA SIN CORREO
+        //$this->email->to('joseisrael.reyes@uptc.edu.co'); //////////////////////ESTA SIN CORREO
+        //$this->email->to('lina.doza@uptc.edu.co'); //////////////////////ESTA SIN CORREO
+        //$this->email->to('acalarcon@gmail.com'); //////////////////////ESTA SIN CORREO
+        //$this->email->to('mauro.callejas@uptc.edu.co'); //////////////////////ESTA SIN CORREO
+        //
+        
         $this->email->subject('AIESEC QR para ingreso al evento');
         $this->email->attach('codigoQR/qrcode.jpg');
         $this->email->message('<h2>Código QR para el ingreso al evento</h2>
@@ -182,21 +199,37 @@ class Aieseccontroller extends CI_Controller {
         }
     }
 
-    public function random($num) {
-        $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        $string = '';
-        for ($i = 0; $i < $num; $i++) {
-            $string .= $characters[rand(0, strlen($characters) - 1)];
-        }
-        return $string;
-    }
+    /*
+      public function random($num) {
+      $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+      $string = '';
+      for ($i = 0; $i < $num; $i++) {
+      $string .= $characters[rand(0, strlen($characters) - 1)];
+      }
+      return $string;
+      }
+     */
 
     public function codigo_qr() {
         //cargamos la librería	
+     
+              $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string = '';
+        for ($i = 0; $i < 20; $i++) {
+            $string .= $characters[rand(30, strlen($characters) - 1)];
+           
+          
+        }
+         $cod['QR'] = $string;
+         $this->appmodel->agregarcodigo($cod);
+      
+      
         $this->load->library('ciqrcode');
-        $data = $this->random(30);
+        
+    
         //hacemos configuraciones
-        $params['data'] = $data;
+        $params['data'] = $string;
+
         $params['level'] = 'H';
         $params['size'] = 10;
         //decimos el directorio a guardar el codigo qr, en este 
@@ -208,20 +241,14 @@ class Aieseccontroller extends CI_Controller {
     }
 
     public function sacarValorTotal() {
-        $precio['total'] = $this->appmodel->sumar_valor();
-        //return $total;
-       $this->load->view('aiesecview/sacarValorTotal',$precio);
+        $precio = $this->appmodel->sumar_valor();
+
+        //$this->load->view('aiesecview/sacarValorTotal',$precio);
+        echo $precio;
     }
 
     public function consultarCorrreo() {
         //  $dato1 = $this->input->get("cc");
-        // $datos = $this->input->get("evento");
-        $correo = $this->appmodel->Correo();
-        // return $correo;
-        $data = array('correo' => $correo,
-            'nombres' => $correo,
-            'foto' => $correo
-        );
 
         return $data;
         //$this->load->view('activarusuario',$data);
