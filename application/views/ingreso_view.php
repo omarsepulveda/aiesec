@@ -4,7 +4,7 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!--> 
-<html lang="spanish" class="no-js"> <!--<![endif]-->
+<html lang="spa" class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
@@ -63,11 +63,11 @@
                                 <h1>Ingreso al sistema</h1> 
                                 <p> 
                                     <label for="username" class="uname" data-icon="u" >Correo </label>
-                                    <input id="username" name="EMAIL" required="required" type="text" placeholder="usuario@mail.com"/>
+                                    <input id="username" name="EMAIL" REQUIRED type="text" placeholder="usuario@mail.com"/>
                                 </p>
                                 <p> 
                                     <label for="password" class="youpasswd" data-icon="p">Contraseña </label>
-                                    <input id="password" name="CLAVE" required="required" type="password" placeholder="*********" /> 
+                                    <input id="password" name="CLAVE" REQUIRED type="password" placeholder="*********" /> 
                                 </p>
 
                                 <p class="keeplogin"> 

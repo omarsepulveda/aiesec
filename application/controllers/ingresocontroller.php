@@ -17,6 +17,7 @@ class Ingresocontroller extends CI_Controller {
 
     public function index() {
         $this->load->view('ingreso_view');
+        //$this->load->view('activarusuarios');
     }
 
     function login() {
@@ -67,8 +68,7 @@ class Ingresocontroller extends CI_Controller {
             $this->appmodel->insertarUsuario($data);
             $datos['registro'] = FALSE;
             $this->load->view('ingreso_view.php', $datos);
-               echo "<script>alert('Estás suscrito, ¡Gracias!.');</script>";
-
+           
                  redirect('PaquetesController', 'refresh');
         }
     }

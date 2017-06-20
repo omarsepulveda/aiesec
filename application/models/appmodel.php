@@ -80,12 +80,12 @@ class Appmodel extends CI_Model {
         return $total[0]->total;
     }
 
-    public function Correo($cc,$eve){
-       $data = $this->db->query("select email from personas p,detalles_evento d
-                              where p.documento=d.cc
-                              and foto is not null" );
+    public function Correo(){
+       $data = $this->db->query("select p.email,p.nombres,d.foto from personas p,detalles_evento d
+                              where p.documento=d.cc and activado=1
+                              and d.foto is not null" );
            if ($data->num_rows() > 0) {
-            $data = $data->result();
+           $data = $data->result();
          return $data;
            } else {
            return FALSE;

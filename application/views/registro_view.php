@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
+       <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
         <title>Formulario de registro</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
         <meta name="description" content="Login and Registration Form with HTML5 and CSS3" />
@@ -20,6 +20,7 @@
     </head>
 
     <body>
+        
         <script type="text/javascript">
             
         function enviarFormulario(){
@@ -66,17 +67,17 @@
                     <form id="form-login"  action="<?= base_url() . 'index.php/ingresocontroller/registrar' ?>" method="post" >
                        
                         <p><label for="documento">Documento:</label></p>
-                        <input name="DOCUMENTO" type="text" id="documento" class="nombre"  required="Este campo es requerido" ceholder="Numero de documento" autofocus=""/></p>
+                        <input name="DOCUMENTO" type="text" id="documento"  REQUIRED ceholder="Numero de documento" autofocus="" size="10"/></p>
 
                         <!--=============================================================================================-->
                         <!--La sisguientes 2 líneas son para agregar campos al formulario con sus respectivos labels-->
                         <!--Puedes usar tantas como necesites-->
                         <p><label for="nombres">Nombres:</label></p>
-                        <input name="NOMBRES" required="Este campo es requerido" type="text" plarequired="Este campo es requerido" id="apellidos" class="apellidos" placeholder="Ingrese nombres" /></p>
+                        <input name="NOMBRES"  type="text" REQUIRED id="apellidos" class="apellidos" placeholder="Ingrese nombres" /></p>
                         <p><label for="nombres">Apellidos:</label></p>
-                        <input name="APELLIDOS" required="Este campo es requerido" type="text" id="apellidos" class="apellidos" placeholder="Ingrese apellidos" /></p>
+                        <input name="APELLIDOS" REQUIRED type="text" id="apellidos" class="apellidos" placeholder="Ingrese apellidos" /></p>
                         <p><label for="nombres">Tipo de asistente:</label></p>
-                        <SELECT NAME="selCombo" SIZE=1 > 
+                        <SELECT REQUIRED NAME="selCombo" SIZE=1 > 
                             <OPTION VALUE="Trabajador">Trabajador</OPTION>
                             <OPTION VALUE="No trabajador">No trabajador</OPTION>
                         </SELECT>
@@ -96,11 +97,21 @@
                 </div>
 
                 <div id="pie"> <button  id="boton" ><a href="<?= base_url() . 'index.php/ingresocontroller/login' ?>"</a>Regresar</a> </button></div>
-            </div><!-- fin contenedor -->
+            </div><br><!-- fin contenedor -->
+           
+            <footer class="footer">
+                <div class="container-fluid">
 
-        </div
+                    <p class="copyright pull-right">
+                        &copy; 2017 <a >Universidad Pedagógica y Tecnológica de Colombia</a>, Docente Mauro Callejas
+                    </p>
+                </div>
+            </footer>
+        
 
-
+ </div>
     </body
-    
+   
+
+
 </html>
